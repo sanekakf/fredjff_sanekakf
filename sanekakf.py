@@ -2,7 +2,7 @@ import pygame
 import random
 import os
 
-from pygame.constants import K_LEFT, K_RIGHT, K_UP
+from pygame.constants import K_DOWN, K_LEFT, K_RIGHT, K_UP
 #НАЧАЛЬНЫЙ ЗАПУСК
 pygame.init()
 
@@ -38,14 +38,19 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = width
         if self.rect.left < 0:
             self.rect.left = 0
-            
+        if self.rect.top > height:
+            self.rect.top = height
+        if self.rect.bottom < 0:
+            self.rect.bottom = 0
         #движение
         if key[K_LEFT]:
             self.speedx = -8
         if key[K_RIGHT]:
             self.speedx = 8
         if key[K_UP]:
-            self.speedy
+            self.speedy = 8
+        if key[K_DOWN]: 
+            self.speedy = -8
         self.rect.x += self.speedx
         self.rect.y += self.speedy
 #запуск игры
