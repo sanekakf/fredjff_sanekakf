@@ -1,1 +1,1 @@
-print('Hello world')
+input=('Какой размерчик, брат?')
