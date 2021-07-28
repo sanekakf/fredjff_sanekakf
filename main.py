@@ -35,7 +35,7 @@ all_sprites.add(player)
 pygame.init()
 pygame.mixer.init() #для звука
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My game")
+pygame.display.set_caption("Саня был тут")
 clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 
