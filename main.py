@@ -16,7 +16,7 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 PURPLE = (160, 0, 200)
 
-class Player(pygame.sprite.Sprite):
+class player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((50,50))
