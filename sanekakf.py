@@ -34,11 +34,11 @@ class Player(pygame.sprite.Sprite):
         key = pygame.key.get_pressed()
 
         #выступы-заскоки
-        if self.rect.left > width:
-            self.rect.right = 0
-        if self.rect.right < width:
+        if self.rect.right > width:
+            self.rect.right = width
+        if self.rect.left < 0:
             self.rect.left = 0
-        
+            
         #движение
         if key[K_LEFT]:
             self.speedx = -8
