@@ -24,25 +24,26 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
 
-all_sprites = pygame.sprite.Group()
-player = Player()
-all_sprites.add(player)
+    def update(self):
+        self.rect.x += 5
 
 
 
 
 #создаем игру и окно 
 pygame.init()
-pygame.mixer.init() #для звука
+pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Саня был тут")
+pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
+player = Player()
+all_sprites.add(player)
 
 #цикл игры
-running = True 
+running = True
 while running:
-    # держим цикл на правильной скорости 
+    # Держим цикл на правильной скорости
     clock.tick(FPS)
     # Ввод процесса (события)
     for event in pygame.event.get():
@@ -50,18 +51,14 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-# обновление 
-all_sprites.update()
-
-
-
-
-
-screen.fill(BLACK)
-all_sprites.draw(screen)
-# после отрисовки всего, переворачиваем экран 
-pygame.display.flip()
-
+    # Обновление
+    all_sprites.update()
+    
+    # Рендеринг
+    screen.fill(BLACK)
+    all_sprites.draw(screen)
+    # После отрисовки всего, переворачиваем экран
+    pygame.display.flip()
 
 pygame.quit()
 

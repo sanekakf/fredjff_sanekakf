@@ -1,4 +1,14 @@
 import pygame
+import random
+import os
+
+from pygame.constants import K_LEFT, K_RIGHT, K_UP
+#НАЧАЛЬНЫЙ ЗАПУСК
+pygame.init()
+
+#папка игры
+ff=os.path.dirname(__file__)
+pimg=pygame.image.load(os.path.join(ff, 'jplayer.png'))
 #создание всего нужного
 width = 800
 height = 600
@@ -12,17 +22,33 @@ gold = (255,190,0)
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50,50))
-        self.image.fill(gold)
+        self.image = pimg
+        # self.image.fill(gold)
         self.rect = self.image.get_rect()
         self.rect.center = (width/2, height/2)
 
+    #обнова картинки, и движения
     def update(self):
-        self.rect.x += 5
+        self.speedx=0
+        self.speedy=0
+        key = pygame.key.get_pressed()
+
+        #выступы-заскоки
         if self.rect.left > width:
             self.rect.right = 0
+        if self.rect.right < width:
+            self.rect.left = 0
+        
+        #движение
+        if key[K_LEFT]:
+            self.speedx = -8
+        if key[K_RIGHT]:
+            self.speedx = 8
+        if key[K_UP]:
+            self.speedy
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
 #запуск игры
-pygame.init()
 pygame.mixer.init()
 screen= pygame.display.set_mode((width, height))
 pygame.display.set_caption('Tokyo Аттак')
@@ -41,7 +67,6 @@ while g_run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             g_run=False
-
     screen.fill(purple_haze)
     s.draw(screen)
     pygame.display.flip()
