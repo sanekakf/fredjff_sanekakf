@@ -3,9 +3,9 @@ from ursina import *
 app = Ursina()
 import time as t
 from ursina.prefabs.platformer_controller_2d import PlatformerController2d
-player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
 from threading import Thread
 
+player = PlatformerController2d(scale_y=1, max_jumps=2)
 #генератор уровня
 quad = load_model('quad')
 enemy= Entity()
@@ -28,22 +28,24 @@ def make_level(texture):
             else:
                 collider = None
             if col == color.green:
-                player.start_position = (x, y)
+                player.start_position = (x, y+3)
                 player.position = player.start_position
             
             if col == color.red:
                 global enemy
                 enemy = Entity(model='cube', collider='box', color=color.red, position=(x,y+0.5))
-    print(color.red)
-    print('quak')    
     level_parent.model.generate()
-
+t.sleep(1)
 # селектор лвл
 def change():
     make_level(load_texture(r'levels\standart.png'))
     lvl1.disable()
     lvl2.disable()
+    player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
 def change1():
+    lvl2.disable()
+    lvl1.disable()
+    player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
     make_level(load_texture(r'levels\new.png'))
 # while level==0:
 lvl1 = Button(scale=(.5,.25),text='Уровень 1')
