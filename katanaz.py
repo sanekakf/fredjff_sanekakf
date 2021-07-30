@@ -1,4 +1,4 @@
-from shlex import join
+#https://www.ursinaengine.org/documentation.html
 from ursina import *
 app = Ursina()
 import time as t
@@ -6,7 +6,7 @@ from ursina.prefabs.platformer_controller_2d import PlatformerController2d
 player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
 from threading import Thread
 
-
+#генератор уровня
 quad = load_model('quad')
 enemy= Entity()
 level_parent = Entity(model=Mesh(vertices=[], uvs=[]), texture='white_cube')
@@ -22,7 +22,6 @@ def make_level(texture):
                 level_parent.model.vertices += [Vec3(*e) + Vec3(x+.5,y+.5,0) for e in quad.vertices] # copy the quad model, but offset it with Vec3(x+.5,y+.5,0)
                 level_parent.model.uvs += quad.uvs
                 if not collider:
-                    global coll
                     coll = Entity(parent=level_parent, position=(x,y), model='quad', origin=(-.5,-.5), collider='box', visible=False)
                 else:
                     collider.scale_x += 1
@@ -39,9 +38,23 @@ def make_level(texture):
     print('quak')    
     level_parent.model.generate()
 
-
-#!игра!
-make_level(load_texture(r'levels\standart.png'))   # generate the level
+# селектор лвл
+level=0
+# while level==0:
+lvl1 = Button(scale=(.5,.25),text='Уровень 1')
+lvl1.x -= 0.6
+lvl2 = Button(scale=(.5,.25), text='Уровень 2')
+# lvl1.on_click = level=1
+lvl2.on_click = Func(set, level,level, 2)
+# app.run()
+# app.destroy()
+# !игра!
+if level == 1:
+    make_level(load_texture(r'levels\standart.png'))
+if level == 2:
+    make_level(load_texture(r'levels\new.png'))
+if level == 0:
+    pass
 
 camera.orthographic = True
 camera.position = (30/2,8)
