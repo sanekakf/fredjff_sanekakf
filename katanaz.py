@@ -6,6 +6,8 @@ app = Ursina()
 import time as t
 from ursina.prefabs.platformer_controller_2d import PlatformerController2d
 from threading import Thread
+player_texture=load_texture('')
+
 
 bullet=Entity(y=0)
 player = PlatformerController2d(scale_y=1, max_jumps=2)
