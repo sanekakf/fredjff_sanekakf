@@ -42,7 +42,7 @@ def make_level(texture):
             
             if col == color.red:
                 global enemy
-                enemy = Entity(model='cube', collider='box', texture=player_texture, position=(x,y+0.5))
+                enemy = Entity(model='cube', collider='box', texture=None,color=color.red, position=(x,y+0.5))
     level_parent.model.generate()
 t.sleep(1)
 # селектор лвл
