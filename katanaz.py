@@ -39,22 +39,19 @@ def make_level(texture):
     level_parent.model.generate()
 
 # селектор лвл
-level=0
+def change():
+    make_level(load_texture(r'levels\standart.png'))
+    lvl1.disable()
+    lvl2.disable()
+def change1():
+    make_level(load_texture(r'levels\new.png'))
 # while level==0:
 lvl1 = Button(scale=(.5,.25),text='Уровень 1')
 lvl1.x -= 0.6
 lvl2 = Button(scale=(.5,.25), text='Уровень 2')
-# lvl1.on_click = level=1
-lvl2.on_click = Func(set, level,level, 2)
-# app.run()
-# app.destroy()
-# !игра!
-if level == 1:
-    make_level(load_texture(r'levels\standart.png'))
-if level == 2:
-    make_level(load_texture(r'levels\new.png'))
-if level == 0:
-    pass
+lvl1.on_click = change
+lvl2.on_click = change1
+
 
 camera.orthographic = True
 camera.position = (30/2,8)
