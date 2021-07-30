@@ -1,16 +1,20 @@
 #https://www.ursinaengine.org/documentation.html
 #https://www.ursinaengine.org/cheat_sheet_dark.html
+from sys import modules
 from numpy import positive
-from ursina import *
-app = Ursina()
+from ursina import * 
 import time as t
 from ursina.prefabs.platformer_controller_2d import PlatformerController2d
 from threading import Thread
-player_texture=load_texture('')
+
+
+app = Ursina()
+player_texture=load_texture('hero.png')
+
 
 
 bullet=Entity(y=0)
-player = PlatformerController2d(scale_y=1, max_jumps=2)
+player = PlatformerController2d(scale_y=1, max_jumps=2, texture=player_texture, color = color.white)
 #генератор уровня
 quad = load_model('quad')
 enemy= Entity()
@@ -38,7 +42,7 @@ def make_level(texture):
             
             if col == color.red:
                 global enemy
-                enemy = Entity(model='cube', collider='box', color=color.red, position=(x,y+0.5))
+                enemy = Entity(model='cube', collider='box', texture=player_texture, position=(x,y+0.5))
     level_parent.model.generate()
 t.sleep(1)
 # селектор лвл
@@ -46,12 +50,18 @@ def change():
     lvl1.disable()
     lvl2.disable()
     make_level(load_texture(r'levels\standart.png'))
-    player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
+    # player = PlatformerController2d(
+        # texture=player_texture,
+        # y=1, 
+        # z=.01, 
+        # scale_y=1, 
+        # max_jumps=2)
+    print(player.texture)
 def change1():
     lvl1.disable()
     lvl2.disable()
     make_level(load_texture(r'levels\new.png'))
-    player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
+    # player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2, texture=player_texture)
 # while level==0:
 lvl1 = Button(scale=(.5,.25),text='Уровень 1')
 lvl1.x -= 0.6
