@@ -1,10 +1,13 @@
 #https://www.ursinaengine.org/documentation.html
+#https://www.ursinaengine.org/cheat_sheet_dark.html
+from numpy import positive
 from ursina import *
 app = Ursina()
 import time as t
 from ursina.prefabs.platformer_controller_2d import PlatformerController2d
 from threading import Thread
 
+bullet=Entity(y=0)
 player = PlatformerController2d(scale_y=1, max_jumps=2)
 #генератор уровня
 quad = load_model('quad')
@@ -38,15 +41,15 @@ def make_level(texture):
 t.sleep(1)
 # селектор лвл
 def change():
-    make_level(load_texture(r'levels\standart.png'))
     lvl1.disable()
     lvl2.disable()
+    make_level(load_texture(r'levels\standart.png'))
     player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
 def change1():
-    lvl2.disable()
     lvl1.disable()
-    player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
+    lvl2.disable()
     make_level(load_texture(r'levels\new.png'))
+    player = PlatformerController2d(y=1, z=.01, scale_y=1, max_jumps=2)
 # while level==0:
 lvl1 = Button(scale=(.5,.25),text='Уровень 1')
 lvl1.x -= 0.6
@@ -60,14 +63,23 @@ camera.position = (30/2,8)
 camera.fov = 16
 
 player.traverse_target = level_parent
-
-def update():
-    if player.intersects(enemy).hit:
-        print('die')
-        player.position = player.start_position
-    
+global bullets
+bullets = False
 def input(key):
     if key =='q':
         print('quad')
         app.destroy()
+    if key == 'x':
+        # global bullet
+        bullet= Entity(model='cube', color=color.green, position=(player.x,player.y))
+        bullets=True
+        print(bullets)
+    if key == 'c':
+        print(bullets)
+
+def update():
+    # print(bullets)
+    if player.intersects(enemy).hit:
+        print('die')
+        player.position = player.start_position
 app.run()
