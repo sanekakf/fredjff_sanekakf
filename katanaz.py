@@ -9,7 +9,10 @@ from threading import Thread
 
 #Тут поясняется что будет безрамочный режим, а еще позиция фулскрин выключена, можешь попробовать - мне не понравилась
 window.borderless = False
+window.title='Игра про абобуса и Данилу Степоново'
+window.icon='ico'
 # window.fullscreen = True
+
 
 #Приложение, и текстурка игрока
 app = Ursina()
@@ -23,6 +26,8 @@ gold_coin= load_texture('gold_coin(angr).png')
 
 #генератор уровня
 quad = load_model('quad')
+quad2= load_model('quad')
+quad.color = color.cyan
 enemy= Entity()
 money=Entity()
 level_parent = Entity(model=Mesh(vertices=[], uvs=[]), texture='white_cube')
@@ -62,7 +67,20 @@ def make_level(texture):
 
             if col == color.blue:
                 global invs
-                invs = Entity(parent=level_parent,position=(x,y),model='quad',color=color.cyan,origin=(-.5,-.5), visible=False)
+                # level_parent.model.uvs += quad.uvs
+                # if not collider:
+                # for count in col:
+                for i in range(10):
+                    invs = Entity(parent=level_parent, position=(x,y), model='quad', color=color.cyan,origin=(-.5,-.5), visible=False)
+                # else:
+                    # collider.scale_x += 2
+                # invs = Entity(parent=level_parent,position=(x,y),model='quad',color=color.cyan, visible=False)
+            else:
+                collider=None
+            if col == color.pink:
+                global secretway
+                secretway = Entity(parent=level_parent, postion=(x,y),mode='quad', collider='box')
+            
     level_parent.model.generate()
 t.sleep(1)
 
@@ -133,6 +151,7 @@ def update():
         print('die')
         player.position = player.start_position
     if player.intersects(money).hit:
+        level_parent.model.uvs += quad2.uvs
         player.color = color.gold
         invs.collider = 'box'
         invs.visible = True
