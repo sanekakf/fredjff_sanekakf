@@ -14,7 +14,7 @@ player_texture=load_texture('hero.png')
 
 
 bullet=Entity(y=0)
-player = PlatformerController2d(scale_y=1, max_jumps=2, texture=player_texture, color = color.white)
+player = PlatformerController2d(scale_x=2 ,scale_y=2, max_jumps=2, texture=player_texture, color = color.white)
 #генератор уровня
 quad = load_model('quad')
 enemy= Entity()
