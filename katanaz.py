@@ -18,11 +18,13 @@ player_texture=load_texture('hero.png')
 #игрок
 player = PlatformerController2d(scale_y=1, scale_box=1,max_jumps=2, texture=player_texture, color = color.white)
 
-
+#модельки
+gold_coin= load_texture('gold_coin(angr).png')
 
 #генератор уровня
 quad = load_model('quad')
 enemy= Entity()
+money=Entity()
 level_parent = Entity(model=Mesh(vertices=[], uvs=[]), texture='white_cube')
 def make_level(texture):
     [destroy(c) for c in level_parent.children]
@@ -55,7 +57,12 @@ def make_level(texture):
 
             #если цвет желтый, то тут должен был быть текст - но я хз епт
             if col == color.yellow:
-                text= Entity(model='quad',text='Уважение', position=(x,y+.5))
+                global money
+                money= Entity(model='quad', collider='box', position=(x,y+2), texture=gold_coin, scale_x=2,scale_y=2.5  )
+
+            if col == color.blue:
+                global invs
+                invs = Entity(parent=level_parent,position=(x,y),model='quad',color=color.cyan,origin=(-.5,-.5), visible=False)
     level_parent.model.generate()
 t.sleep(1)
 
@@ -125,4 +132,10 @@ def update():
     if player.intersects(enemy).hit:
         print('die')
         player.position = player.start_position
+    if player.intersects(money).hit:
+        player.color = color.gold
+        invs.collider = 'box'
+        invs.visible = True
+    # if player.color == color.gold:
+
 app.run()
