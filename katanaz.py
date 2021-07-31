@@ -14,7 +14,7 @@ window.borderless = False
 #Приложение, и текстурка игрока
 app = Ursina()
 player_texture=load_texture('hero.png')
-
+enemy_texture = load_texture('enemy.png')
 #игрок
 player = PlatformerController2d(scale_y=1, scale_box=1,max_jumps=2, texture=player_texture, color = color.white)
 
@@ -53,7 +53,7 @@ def make_level(texture):
             #если цвет красный, то объявляется враг
             if col == color.red:
                 global enemy
-                enemy = Entity(model='cube', collider='box', texture=None,color=color.red, position=(x,y+.5))
+                enemy = Entity(model='cube', collider='box', texture=enemy_texture,position=(x,y+.5))
 
             #если цвет желтый, то тут должен был быть текст - но я хз епт
             if col == color.yellow:
