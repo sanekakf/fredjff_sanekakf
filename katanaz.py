@@ -16,7 +16,7 @@ app = Ursina()
 player_texture=load_texture('hero.png')
 enemy_texture = load_texture('enemy.png')
 #игрок
-player = PlatformerController2d(scale_y=1, scale_box=1,max_jumps=2, texture=player_texture, color = color.white)
+player = PlatformerController2d(scale_y=2, scale_x=2,scale_box=2,max_jumps=2, texture=player_texture, color = color.white)
 
 #модельки
 gold_coin= load_texture('gold_coin(angr).png')
@@ -41,7 +41,7 @@ def make_level(texture):
                 if not collider:
                     coll = Entity(parent=level_parent, position=(x,y), model='quad', origin=(-.5,-.5), collider='box', visible=False)
                 else:
-                    collider.scale_x += 1
+                    collider.scale_x += 2
             else:
                 collider = None
 
@@ -53,7 +53,7 @@ def make_level(texture):
             #если цвет красный, то объявляется враг
             if col == color.red:
                 global enemy
-                enemy = Entity(model='cube', collider='box', texture=enemy_texture,position=(x,y+.5))
+                enemy = Entity(model='cube', collider='box', scale_x=2,scale_y=2,texture=enemy_texture,position=(x,y+.5))
 
             #если цвет желтый, то тут должен был быть текст - но я хз епт
             if col == color.yellow:
